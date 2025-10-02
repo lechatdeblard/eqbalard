@@ -183,6 +183,25 @@ void EQBalardAudioProcessor::setStateInformation (const void* data, int sizeInBy
     // whose contents will have been created by the getStateInformation() call.
 }
 
+juce:: AudioProcessorValueTreeState::ParameterLayout
+    EQBalardAudioProcessor::createParamaterLayout()
+{
+        
+        juce:: AudioProcessorValueTreeState::ParameterLayout layout;
+        layout.add(std::make_unique<juce::AudioParameterFloat>("LowCutFreq",
+                                                               "LowCutFreq",juce::NormalisableRange<float>(20.f,20000.f,1.f,1.f),20.f));
+        layout.add(std::make_unique<juce::AudioParameterFloat>("HightCutFreq",
+                                                               "HightCutFreq",juce::NormalisableRange<float>(20.f,20000.f,1.f,1.f),20000.f));
+        layout.add(std::make_unique<juce::AudioParameterFloat>("PeakCutFreq",
+                                                               "PeakCutFreq",juce::NormalisableRange<float>(20.f,20000.f,1.f,1.f),750.f));
+        layout.add(std::make_unique<juce::AudioParameterFloat>("GainCutFreq",
+                                                               "GainCutFreq",juce::NormalisableRange<float>(-24.f,24.f,0.5f,1.f),0.f));
+        
+        
+        
+        return layout;
+    }
+
 //==============================================================================
 // This creates new instances of the plugin..
 juce::AudioProcessor* JUCE_CALLTYPE createPluginFilter()
